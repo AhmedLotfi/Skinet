@@ -4,11 +4,20 @@ namespace Core.Entities
 {
     public class Product : AuditedEntity<long>
     {
-        // [Required]
-        //[MaxLength(200)]
         public string Name { get; protected set; }
 
-        // [MaxLength(200)]
-        public string NameAr { get; protected set; }
+        public string Description { get; protected set; }
+
+        public decimal Price { get; protected set; }
+
+        public string PictureUrl { get; protected set; }
+
+        public ProductType ProductType { get; protected set; }
+
+        public int ProductTypeId { get; protected set; }
+
+        public ProductBrand ProductBrand { get; protected set; }
+
+        public int ProductBrandId { get; protected set; }
     }
 }
