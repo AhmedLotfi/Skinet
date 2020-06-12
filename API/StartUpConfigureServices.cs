@@ -14,6 +14,7 @@ namespace API
                                   x.UseSqlite(config.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped(typeof(IGenericRepository<,>), typeof(GenericRepository<,>));
         }
     }
 }
