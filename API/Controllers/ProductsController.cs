@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Core.Entities;
 using Core.Interfaces;
+using Core.Specifications.App;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -24,12 +25,19 @@ namespace API.Controllers
 
         [HttpGet]
         public async Task<ActionResult<List<Product>>> GetProducts()
-         => Ok(await _repoProduct.GetAllAsync());
+        {
+            var spec = new ProductsWithBrandsAndTypesSpecification();
+
+            return Ok(await _repoProduct.GetAllAsync(spec));
+        }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetProducts(long id)
-         => Ok(await _repoProduct.GetByIdAsync(id));
+        {
+            var spec = new ProductsWithBrandsAndTypesSpecification(id);
 
+            return Ok(await _repoProduct.GetEntityWithSpec(spec));
+        }
 
         [HttpGet("[Action]")]
         public async Task<ActionResult<IReadOnlyList<ProductBrand>>> GetProductsBrands()
