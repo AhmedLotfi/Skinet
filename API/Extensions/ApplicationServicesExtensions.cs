@@ -1,26 +1,18 @@
 using System.Linq;
 using API.Errors;
-using API.Helpers;
-using AutoMapper;
 using Core.Interfaces;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace API
+namespace API.Extensions
 {
-    public static class StartUpConfigureServices
+    public static class ApplicationServicesExtensions
     {
-        public static void ConfigureServices(IServiceCollection services, IConfiguration config)
+        public static IServiceCollection AddApplicationService(this IServiceCollection services)
         {
-            services.AddAutoMapper(typeof(MappingProfiles));
-
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped(typeof(IGenericRepository<,>), typeof(GenericRepository<,>));
-
-            services.AddDbContext<StoreContext>(x => x.UseSqlite(config.GetConnectionString("DefaultConnection")));
 
             services.Configure<ApiBehaviorOptions>(options =>
                         {
@@ -39,6 +31,8 @@ namespace API
                                 return new BadRequestObjectResult(errorResponse);
                             };
                         });
+
+            return services;
         }
     }
 }
