@@ -1,5 +1,3 @@
-using System;
-using System.Linq.Expressions;
 using Core.Entities;
 
 namespace Core.Specifications.App
@@ -11,8 +9,6 @@ namespace Core.Specifications.App
              (!productParams.BrandId.HasValue || z.ProductBrandId == productParams.BrandId) &&
              (!productParams.TypeId.HasValue || z.ProductTypeId == productParams.TypeId)
          )
-        {
-
-        }
+        { }
     }
 }

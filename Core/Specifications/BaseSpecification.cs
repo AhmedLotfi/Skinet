@@ -33,10 +33,11 @@ namespace Core.Specifications
 
         protected void AddOrderByDesc(Expression<Func<T, object>> orderByDescExpression) => this.OrderByDescending = orderByDescExpression;
 
-        protected void ApplyPaging(int take, int skip)
+        protected void ApplyPaging(int skip, int take)
         {
             this.Take = take;
             this.Skip = skip;
+            this.IsPagingEnabled = true;
         }
     }
 }
